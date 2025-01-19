@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="bs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predviđanje cijena avio karata</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://images.unsplash.com/photo-1604341049386-6a7a627de59d?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #003a65;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #003a65;
+            margin-top: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8); /* Polu-prozirna pozadina */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .form-column {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .form-column:last-child {
+            margin-right: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        select,
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #f9f9f9;
+            transition: border-color 0.3s;
+        }
+
+        select:focus,
+        input[type="date"]:focus {
+            border-color: #6ec0e9;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #6ec0e9;
+            color: #fff;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Predviđanje Cijene Avio Karata</h1>
+
+    <form action="/predict" method="POST">
+        <div class="form-row">
+            <div class="form-column">
+                <label for="airline">Avio kompanija:</label>
+                <select name="airline" id="airline">
+                    <option value="SpiceJet">SpiceJet</option>
+                    <option value="AirAsia">AirAsia</option>
+                    <option value="Vistara">Vistara</option>
+                    <option value="GO_FIRST">GO FIRST</option>
+                    <option value="Indigo">Indigo</option>
+                    <option value="Air_India">Air India</option>
+                </select>
+
+                <label for="source_city">Grad iz kojeg se polazi:</label>
+                <select name="source_city" id="source_city">
+                    <option value="Delhi">Delhi</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Chennai">Chennai</option>
+                </select>
+            </div>
+
+            <div class="form-column">
+                <label for="class">Klasa:</label>
+                <select name="class" id="class">
+                    <option value="Economy">Ekonomska</option>
+                    <option value="Business">Biznis</option>
+                </select>
+
+                <label for="destination_city">Odredišni grad:</label>
+                <select name="destination_city" id="destination_city">
+                    <option value="Delhi">Delhi</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Chennai">Chennai</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-column">
+                <label for="departure_time">Vrijeme polaska:</label>
+                <select name="departure_time" id="departure_time">
+                    <option value="Evening">Veče</option>
+                    <option value="Early_Morning">Rano ujutro</option>
+                    <option value="Morning">Jutro</option>
+                    <option value="Afternoon">Popodne</option>
+                    <option value="Night">Noć</option>
+                    <option value="Late_Night">Kasna noć</option>
+                </select>
+
+                <label for="stops">Broj presjedanja:</label>
+                <select name="stops" id="stops">
+                    <option value="zero">Nema</option>
+                    <option value="one">Jedno</option>
+                    <option value="two_or_more">Dva ili više</option>
+                </select>
+            </div>
+
+            <div class="form-column">
+                <label for="arrival_time">Vrijeme dolaska:</label>
+                <select name="arrival_time" id="arrival_time">
+                    <option value="Night">Noć</option>
+                    <option value="Morning">Jutro</option>
+                    <option value="Early_Morning">Rano ujutro</option>
+                    <option value="Afternoon">Popodne</option>
+                    <option value="Evening">Veče</option>
+                    <option value="Late_Night">Kasna noć</option>
+                </select>
+
+                <label for="departure_date">Datum polaska:</label>
+                <input type="date" name="departure_date" id="departure_date" min="2025-01-01">
+            </div>
+        </div>
+
+        <button type="submit">Predvidi cijenu</button>
+    </form>
+
+    {% if prediction %}
+    <h2>Predviđanje cijene: €{{ prediction }}</h2>
+    {% endif %}
+</body>
+
+</html>
