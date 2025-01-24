@@ -178,8 +178,23 @@
                 </select>
 
                 <label for="departure_date">Datum polaska:</label>
-                <input type="date" name="departure_date" id="departure_date" min="2025-01-01">
-            </div>
+                <input type="date" name="departure_date" id="departure_date">
+                <script>
+                  // Dobavi sutrašnji datum
+                  var tomorrow = new Date();
+                  tomorrow.setDate(tomorrow.getDate() + 1);
+                
+                  // Formatiraj datum u obliku YYYY-MM-DD
+                  var year = tomorrow.getFullYear();
+                  var month = (tomorrow.getMonth() + 1).toString().padStart(2, '0'); // Mjesec se računa od 0
+                  var day = tomorrow.getDate().toString().padStart(2, '0'); // Dodaj nulu ako je dan jednocifren
+                
+                  var formattedDate = year + '-' + month + '-' + day;
+                
+                  // Postavi min atribut na sutrašnji datum
+                  document.getElementById('departure_date').setAttribute('min', formattedDate);
+                </script>
+                            </div>
         </div>
 
         <button type="submit">Predvidi cijenu</button>
